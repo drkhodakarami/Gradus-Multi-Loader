@@ -1,0 +1,12 @@
+plugins {
+    id 'com.dynamero.props' version '1.0.0' apply false
+    id 'net.fabricmc.fabric-loom' apply false
+    id 'net.neoforged.moddev' apply false
+    id 'eclipse'
+    id 'com.diffplug.spotless' apply false
+    id 'com.modrinth.minotaur'
+    id 'io.github.themrmilchmann.curseforge-publish'
+}
+
+apply from: './gradle/run-all-clients-task.gradle'
+apply from: './gradle/tasks-organize.gradle'

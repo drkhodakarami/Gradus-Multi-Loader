@@ -1,0 +1,90 @@
+apply plugin: 'com.diffplug.spotless'
+apply plugin: 'com.dynamero.props'
+
+def prp = props.load('dependencies')
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(prp.java_version)
+    withSourcesJar()
+    withJavadocJar()
+}
+
+tasks.withType(Jar).configureEach {
+    from(rootProject.file('LICENSE')) {
+        rename { "${it}_${prp.materia_archives_base_name}" }
+    }
+}
+
+jar {
+    manifest {
+        attributes([
+                'Specification-Title'   : prp.materia_archives_base_name,
+                'Specification-Vendor'  : prp.materia_author,
+                'Specification-Version' : project.jar.archiveVersion,
+                'Implementation-Title'  : project.name,
+                'Implementation-Version': project.jar.archiveVersion,
+                'Implementation-Vendor' : prp.materia_author,
+                'Built-On-Minecraft'    : prp.minecraft_version
+        ])
+    }
+}
+
+spotless {
+    lineEndings 'UNIX'
+
+    java {
+        licenseHeaderFile("${rootDir.parent}/shared-config/HEADER")
+        removeUnusedImports()
+        importOrder('java', 'javax', '', 'net.minecraft', 'dev.thementor.api', 'dev.thementor', 'com.dynamero')
+        leadingTabsToSpaces(4)
+        //leadingSpacesToTabs()
+        trimTrailingWhitespace()
+    }
+
+    groovyGradle {
+        target('src/**/*.gradle', '*.gradle', 'gradle/*.gradle')
+        leadingSpacesToTabs()
+        leadingTabsToSpaces(4)
+        trimTrailingWhitespace()
+    }
+
+    json {
+        target 'src/**/lang/en_us.json'
+        targetExclude 'src/**/generated/**'
+        gson().indentWithSpaces(2).sortByKeys()
+    }
+}
+
+processResources {
+    var expandProps = [
+            'version'                      : prp.materia_version,
+            'group'                        : prp.materia_group,
+            'minecraft_version'            : prp.minecraft_version,
+            'minecraft_version_range'      : prp.minecraft_version_range,
+            'fabric_version'               : prp.fabric_version,
+            'fabric_loader_version'        : prp.fabric_loader_version,
+            'mod_name'                     : prp.materia_archives_base_name,
+            'mod_author'                   : prp.materia_author,
+            'mod_id'                       : prp.materia_modid,
+            'mod_license'                  : prp.materia_license,
+            'mod_description'              : prp.materia_description,
+            'neoforge_version'             : prp.neoforge_version,
+            'neoforge_loader_version_range': prp.neoforge_loader_version_range,
+            'mod_credits'                  : prp.materia_credits,
+            'java_version'                 : prp.java_version
+    ]
+
+    var jsonExpandProps = expandProps.collectEntries {
+        key, value -> [(key): value instanceof String ? value.replace('\n', '\\\\n') : value]
+    }
+
+    filesMatching(['META-INF/mods.toml', 'META-INF/neoforge.mods.toml']) {
+        expand expandProps
+    }
+
+    filesMatching(['pack.mcmeta', 'fabric.mod.json', '*.mixins.json']) {
+        expand jsonExpandProps
+    }
+
+    inputs.properties(expandProps)
+}

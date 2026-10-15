@@ -1,0 +1,7 @@
+apply plugin: 'com.dynamero.props'
+
+def prp = props.load('dependencies')
+
+base {
+    archivesName = "${prp.materia_modid}-Fabric-${prp.minecraft_version}"
+}
