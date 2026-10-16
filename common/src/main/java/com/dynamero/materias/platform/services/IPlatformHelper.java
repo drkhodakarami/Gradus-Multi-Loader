@@ -1,5 +1,21 @@
 package com.dynamero.materias.platform.services;
 
+import com.dynamero.contracts.annotations.*;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+
+import java.util.function.Supplier;
+
+@Developer("TheMentor")
+@CreatedAt("2026-10-16")
+@ModifiedAt("2026-10-16")
+@ModifiedBy("TheMentor")
+@Website("https://dynamero.com")
+@Repository("https://github.com/drkhodakarami/")
+@Discord("https://discord.gg/pmM4emCbuH")
+@Youtube("https://www.youtube.com/@TheMentorCodeLab")
+@Modrinth("https://modrinth.com/user/jiraiyah")
 public interface IPlatformHelper
 {
     /**

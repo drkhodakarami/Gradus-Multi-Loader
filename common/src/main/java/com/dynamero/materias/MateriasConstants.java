@@ -1,14 +1,13 @@
 package com.dynamero.materias;
 
+import com.dynamero.contracts.logger.Logger;
 import net.minecraft.resources.Identifier;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class MateriasConstants
 {
     public static final String MODID = "materias";
     public static final String MOD_NAME = "Materias";
-    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
+    public static final Logger LOGGER = new Logger(MOD_NAME, true);
 
     public static Identifier id(String name)
     {

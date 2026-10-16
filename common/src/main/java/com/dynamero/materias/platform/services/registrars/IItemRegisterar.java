@@ -2,6 +2,7 @@ package com.dynamero.materias.platform.services.registrars;
 
 import java.util.function.Function;
 
+import com.dynamero.contracts.annotations.*;
 import com.dynamero.materias.platform.factories.IToolFactory;
 import com.dynamero.materias.platform.services.utils.RegistryHandle;
 import com.dynamero.materias.utils.BaseHelper;
@@ -16,6 +17,15 @@ import net.minecraft.world.item.equipment.ArmorType;
 /**
  * Registers custom items for Minecraft.
  */
+@Developer("TheMentor")
+@CreatedAt("2026-10-16")
+@ModifiedAt("2026-10-16")
+@ModifiedBy("TheMentor")
+@Website("https://dynamero.com")
+@Repository("https://github.com/drkhodakarami/")
+@Discord("https://discord.gg/pmM4emCbuH")
+@Youtube("https://www.youtube.com/@TheMentorCodeLab")
+@Modrinth("https://modrinth.com/user/jiraiyah")
 public interface IItemRegisterar
 {
     ResourceKey<Item> key(String name);
@@ -127,8 +137,7 @@ public interface IItemRegisterar
      */
     default <R extends Item> RegistryHandle<R> register(String name, Function<Item.Properties, ? extends R> factory)
     {
-        var key = key(name);
-        return register(key, factory);
+        return register(key(name), factory);
     }
 
     /**
@@ -142,8 +151,7 @@ public interface IItemRegisterar
      */
     default <R extends Item> RegistryHandle<R> register(String name, int stackCount, Function<Item.Properties, ? extends R> factory)
     {
-        var key = key(name);
-        return register(key, stackCount, factory);
+        return register(key(name), stackCount, factory);
     }
 
     /**
@@ -157,8 +165,7 @@ public interface IItemRegisterar
      */
     default <R extends Item> RegistryHandle<R> register(String name, Item.Properties settings, Function<Item.Properties, ? extends R> factory)
     {
-        var key = key(name);
-        return register(key, settings, factory);
+        return register(key(name), settings, factory);
     }
 
     /**
@@ -479,8 +486,7 @@ public interface IItemRegisterar
      */
     default <R extends Item> RegistryHandle<R> registerTool(String name, ToolMaterial material, float attackDamage, float attackSpeed, IToolFactory<Item.Properties, ? extends R> factory)
     {
-        var key = key(name);
-        return registerTool(key, material, attackDamage, attackSpeed, factory);
+        return registerTool(key(name), material, attackDamage, attackSpeed, factory);
     }
 
     /**
@@ -498,8 +504,7 @@ public interface IItemRegisterar
     default <R extends Item> RegistryHandle<R> registerTool(String name, ToolMaterial material, float attackDamage, float attackSpeed,
                                              Item.Properties settings, IToolFactory<Item.Properties, ? extends R> factory)
     {
-        var key = key(name);
-        return registerTool(key, material, attackDamage, attackSpeed, settings, factory);
+        return registerTool(key(name), material, attackDamage, attackSpeed, settings, factory);
     }
     //endregion
 

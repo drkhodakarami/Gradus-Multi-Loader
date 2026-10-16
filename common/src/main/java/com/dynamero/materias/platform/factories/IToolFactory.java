@@ -1,5 +1,6 @@
 package com.dynamero.materias.platform.factories;
 
+import com.dynamero.contracts.annotations.*;
 import net.minecraft.world.item.ToolMaterial;
 /**
  * Represents a factory interface for creating tool instances from materials and settings.
@@ -7,6 +8,15 @@ import net.minecraft.world.item.ToolMaterial;
  * @param <U> the type of the additional settings required to create the tool
  * @param <R> the type of the created tool instance
  */
+@Developer("TheMentor")
+@CreatedAt("2026-10-16")
+@ModifiedAt("2026-10-16")
+@ModifiedBy("TheMentor")
+@Website("https://dynamero.com")
+@Repository("https://github.com/drkhodakarami/")
+@Discord("https://discord.gg/pmM4emCbuH")
+@Youtube("https://www.youtube.com/@TheMentorCodeLab")
+@Modrinth("https://modrinth.com/user/jiraiyah")
 public interface IToolFactory<U, R>
 {
     /**

@@ -68,3 +68,8 @@ sourceSets.configureEach {
         }
     }
 }
+
+dependencies {
+    implementation "com.dynamero.contracts:contracts:${prp.contracts_version}"
+    jarJar "com.dynamero.contracts:contracts:${prp.contracts_version}"
+}

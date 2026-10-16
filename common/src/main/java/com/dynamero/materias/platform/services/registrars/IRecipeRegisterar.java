@@ -1,5 +1,6 @@
 package com.dynamero.materias.platform.services.registrars;
 
+import com.dynamero.contracts.annotations.*;
 import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.world.item.crafting.*;
@@ -7,6 +8,15 @@ import net.minecraft.world.item.crafting.*;
 /**
  * Registers custom recipes and recipe serializers for Minecraft.
  */
+@Developer("TheMentor")
+@CreatedAt("2026-10-16")
+@ModifiedAt("2026-10-16")
+@ModifiedBy("TheMentor")
+@Website("https://dynamero.com")
+@Repository("https://github.com/drkhodakarami/")
+@Discord("https://discord.gg/pmM4emCbuH")
+@Youtube("https://www.youtube.com/@TheMentorCodeLab")
+@Modrinth("https://modrinth.com/user/jiraiyah")
 public interface IRecipeRegisterar
 {
     /**

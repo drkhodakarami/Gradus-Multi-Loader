@@ -10,3 +10,12 @@ plugins {
 
 apply from: './gradle/run-all-clients-task.gradle'
 apply from: './gradle/tasks-organize.gradle'
+
+allprojects {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+
+        maven { url = 'https://repo.repsy.io/mvn/thementor/contracts' }
+    }
+}

@@ -2,13 +2,11 @@ package com.dynamero.materias.platform.services.registrars;
 
 import java.util.function.Function;
 
+import com.dynamero.contracts.annotations.*;
 import com.dynamero.materias.platform.services.utils.RegistryHandle;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.references.BlockItemId;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
@@ -17,30 +15,30 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 /**
  * Provides utility methods for registering blocks in Minecraft.
  */
-
+@Developer("TheMentor")
+@CreatedAt("2026-10-16")
+@ModifiedAt("2026-10-16")
+@ModifiedBy("TheMentor")
+@Website("https://dynamero.com")
+@Repository("https://github.com/drkhodakarami/")
+@Discord("https://discord.gg/pmM4emCbuH")
+@Youtube("https://www.youtube.com/@TheMentorCodeLab")
+@Modrinth("https://modrinth.com/user/jiraiyah")
 public interface IBlockRegisterar
 {
     ResourceKey<Block> key(String name);
 
     //region MAIN
-    default <R extends Block> RegistryHandle<R> register(ResourceKey<Block> key, R block)
-    {
-        return Registry.register(BuiltInRegistries.BLOCK, key, block);
-    }
+    <R extends Block> RegistryHandle<R> register(ResourceKey<Block> key, R block);
 
-    default <R extends Block> RegistryHandle<R> register(ResourceKey<Block> key, Function<BlockBehaviour.Properties, ? extends R> factory)
-    {
-        R block = factory.apply(BlockBehaviour.Properties.of().setId(key));
-        return Registry.register(BuiltInRegistries.BLOCK, key, block);
-    }
+    <R extends Block> RegistryHandle<R> register(ResourceKey<Block> key, Function<BlockBehaviour.Properties, ? extends R> factory);
 
-    default <R extends Block> RegistryHandle<R> register(ResourceKey<Block> key, BlockBehaviour.Properties settings, Function<BlockBehaviour.Properties, ? extends R> factory)
-    {
-        R block = factory.apply(settings.setId(key));
-        return Registry.register(BuiltInRegistries.BLOCK, key, block);
-    }
+    <R extends Block> RegistryHandle<R> register(ResourceKey<Block> key, BlockBehaviour.Properties settings, Function<BlockBehaviour.Properties, ? extends R> factory);
 
-    <R extends Block> RegistryHandle<R> registerBlock(String name, R block);
+    default <R extends Block> RegistryHandle<R> registerBlock(String name, R block)
+    {
+        return register(key(name), block);
+    }
     //ednregion
 
     //region HELPERS
@@ -96,11 +94,7 @@ public interface IBlockRegisterar
         return registerCopy(copyBlock, key, factory);
     }
 
-    default <R extends Block> RegistryHandle<R> registerCopy(Block copyBlock, ResourceKey<Block> key, Function<BlockBehaviour.Properties, ? extends R> factory)
-    {
-        R block = factory.apply(BlockBehaviour.Properties.ofFullCopy(copyBlock).setId(key));
-        return Registry.register(BuiltInRegistries.BLOCK, key, block);
-    }
+    <R extends Block> RegistryHandle<R> registerCopy(Block copyBlock, ResourceKey<Block> key, Function<BlockBehaviour.Properties, ? extends R> factory);
 
     default <R extends Block, C extends Block> RegistryHandle<R> registerCopy(C copyBlock, BlockItemId blockItemId, Function<BlockBehaviour.Properties, ? extends R> factory)
     {
@@ -109,15 +103,22 @@ public interface IBlockRegisterar
     //endregion
 
     RegistryHandle<StairBlock> registerStair(String name, Block stateBlock, Block copyBlock);
-    RegistryHandle<SlabBlock> registerSlab(String name, Block copyBlock);
-    RegistryHandle<ButtonBlock> registerButton(String name, BlockSetType blockType, int pressureTicks, Block copyBlock);
-    RegistryHandle<PressurePlateBlock> registerPressurePlate(String name, BlockSetType blockType, Block copyBlock);
-    RegistryHandle<FenceBlock> registerFence(String name, Block copyBlock);
-    RegistryHandle<FenceGateBlock> registerFenceGate(String name, WoodType woodType, Block copyBlock);
-    RegistryHandle<WallBlock> registerWall(String name, Block copyBlock);
-    RegistryHandle<DoorBlock> registerDoor(String name, BlockSetType blockType, Block copyBlock);
-    RegistryHandle<TrapDoorBlock> registerTrapdoor(String name, BlockSetType blockType, Block copyBlock);
 
+    RegistryHandle<SlabBlock> registerSlab(String name, Block copyBlock);
+
+    RegistryHandle<ButtonBlock> registerButton(String name, BlockSetType blockType, int pressureTicks, Block copyBlock);
+
+    RegistryHandle<PressurePlateBlock> registerPressurePlate(String name, BlockSetType blockType, Block copyBlock);
+
+    RegistryHandle<FenceBlock> registerFence(String name, Block copyBlock);
+
+    RegistryHandle<FenceGateBlock> registerFenceGate(String name, WoodType woodType, Block copyBlock);
+
+    RegistryHandle<WallBlock> registerWall(String name, Block copyBlock);
+
+    RegistryHandle<DoorBlock> registerDoor(String name, BlockSetType blockType, Block copyBlock);
+
+    RegistryHandle<TrapDoorBlock> registerTrapdoor(String name, BlockSetType blockType, Block copyBlock);
 
     default RegistryHandle<Block> registerXpBlock(String name, int minXp, int maxXp, BlockBehaviour.Properties settings)
     {

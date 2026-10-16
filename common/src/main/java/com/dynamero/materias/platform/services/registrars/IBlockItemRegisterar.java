@@ -1,8 +1,11 @@
 package com.dynamero.materias.platform.services.registrars;
 
+import com.dynamero.contracts.annotations.*;
+import com.dynamero.materias.platform.Services;
 import com.dynamero.materias.platform.factories.IBlockItemFactory;
 import com.dynamero.materias.platform.services.utils.RegistryHandle;
 import net.minecraft.references.BlockItemId;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -11,8 +14,22 @@ import net.minecraft.world.level.block.Block;
 /**
  * Provides utility methods for registering block items in Minecraft.
  */
+@Developer("TheMentor")
+@CreatedAt("2026-10-16")
+@ModifiedAt("2026-10-16")
+@ModifiedBy("TheMentor")
+@Website("https://dynamero.com")
+@Repository("https://github.com/drkhodakarami/")
+@Discord("https://discord.gg/pmM4emCbuH")
+@Youtube("https://www.youtube.com/@TheMentorCodeLab")
+@Modrinth("https://modrinth.com/user/jiraiyah")
 public interface IBlockItemRegisterar
 {
+    default BlockItemId key(String name)
+    {
+        return new BlockItemId(Services.BLOCKS.key(name), Services.ITEMS.key(name));
+    }
+
     //region Helper Overloads
     /**
      * Registers a block item using default settings.
@@ -20,7 +37,32 @@ public interface IBlockItemRegisterar
      * @param block The block to register as an item.
      * @return The registered block item.
      */
-    public RegistryHandle<BlockItem> register(Block block);
+    default <B extends RegistryHandle<Block>> RegistryHandle<BlockItem> register(RegistryHandle<B> block)
+    {
+        var key = key(block.key().identifier().getPath());
+        var registered = register(block.get(), key);
+
+        return new RegistryHandle<>()
+        {
+            @Override
+            public Identifier id()
+            {
+                return key.item().identifier();
+            }
+
+            @Override
+            public ResourceKey<Item> key()
+            {
+                return key.item();
+            }
+
+            @Override
+            public BlockItem get()
+            {
+                return registered.get();
+            }
+        };
+    }
 
     /**
      * Registers a block item using a custom IBlockItemFactory.
@@ -29,7 +71,32 @@ public interface IBlockItemRegisterar
      * @param factory The factory to create the block item with custom settings.
      * @return The registered block item.
      */
-    public <R extends BlockItem> RegistryHandle<R> register(Block block, IBlockItemFactory<Item.Properties, R> factory);
+    default  <B extends RegistryHandle<Block>, R extends BlockItem> RegistryHandle<R> register(RegistryHandle<B> block, IBlockItemFactory<Item.Properties, R> factory)
+    {
+        var key = key(block.key().identifier().getPath());
+        var registered = register(block.get(), key, factory);
+
+        return new RegistryHandle<R>()
+        {
+            @Override
+            public Identifier id()
+            {
+                return key.item().identifier();
+            }
+
+            @Override
+            public ResourceKey<Item> key()
+            {
+                return key.item();
+            }
+
+            @Override
+            public R get()
+            {
+                return registered.get();
+            }
+        };
+    }
 
     /**
      * Registers a block item with custom settings using a custom IBlockItemFactory.
@@ -39,7 +106,32 @@ public interface IBlockItemRegisterar
      * @param factory The factory to create the block item with custom settings.
      * @return The registered block item.
      */
-    public <R extends BlockItem> RegistryHandle<R> register(Block block, Item.Properties settings, IBlockItemFactory<Item.Properties, R> factory);
+    default <B extends RegistryHandle<Block>, R extends BlockItem> RegistryHandle<R> register(RegistryHandle<B> block, Item.Properties settings, IBlockItemFactory<Item.Properties, R> factory)
+    {
+        var key = key(block.key().identifier().getPath());
+        var registered = register(block.get(), key, settings, factory);
+
+        return new RegistryHandle<R>()
+        {
+            @Override
+            public Identifier id()
+            {
+                return key.item().identifier();
+            }
+
+            @Override
+            public ResourceKey<Item> key()
+            {
+                return key.item();
+            }
+
+            @Override
+            public R get()
+            {
+                return registered.get();
+            }
+        };
+    }
     //endregion
 
     //region Main Overloads
@@ -51,7 +143,35 @@ public interface IBlockItemRegisterar
      * @param key   the resource key for the item registry
      * @return the registered BlockItem instance
      */
-    public <B extends Block> RegistryHandle<BlockItem> register(B block, ResourceKey<Item> key);
+    default <B extends Block> RegistryHandle<BlockItem> register(RegistryHandle<B> block, ResourceKey<Item> key)
+    {
+        var registered = Services.ITEMS.register(key,
+                                                 properties ->
+                                                         new BlockItem(block.get(),
+                                                                       properties
+                                                                               .useBlockDescriptionPrefix()
+                                                                               .setId(key)));
+        return new RegistryHandle<>()
+        {
+            @Override
+            public Identifier id()
+            {
+                return key.identifier();
+            }
+
+            @Override
+            public ResourceKey<Item> key()
+            {
+                return key;
+            }
+
+            @Override
+            public BlockItem get()
+            {
+                return registered.get();
+            }
+        };
+    }
 
     /**
      * Registers a block item for the specified block using a BlockItemId.
@@ -60,7 +180,35 @@ public interface IBlockItemRegisterar
      * @param blockItemId the block item identifier
      * @return the registered BlockItem instance
      */
-    public <B extends Block> RegistryHandle<BlockItem> register(B block, BlockItemId blockItemId);
+    default <B extends Block> RegistryHandle<BlockItem> register(RegistryHandle<B> block, BlockItemId blockItemId)
+    {
+        var registered = Services.ITEMS.register(blockItemId.item(),
+                                                 properties ->
+                                                         new BlockItem(block.get(),
+                                                                       properties
+                                                                               .useBlockDescriptionPrefix()
+                                                                               .setId(blockItemId.item())));
+        return new RegistryHandle<>()
+        {
+            @Override
+            public Identifier id()
+            {
+                return blockItemId.item().identifier();
+            }
+
+            @Override
+            public ResourceKey<Item> key()
+            {
+                return blockItemId.item();
+            }
+
+            @Override
+            public BlockItem get()
+            {
+                return registered.get();
+            }
+        };
+    }
 
     /**
      * Registers a block item for the specified block using a ResourceKey and custom factory.
@@ -71,7 +219,35 @@ public interface IBlockItemRegisterar
      * @param factory the factory creating the block item
      * @return the registered BlockItem instance
      */
-    public <B extends Block, R extends BlockItem> RegistryHandle<R> register(B block, ResourceKey<Item> key, IBlockItemFactory<Item.Properties, R> factory);
+    default <B extends Block, R extends BlockItem> RegistryHandle<R> register(RegistryHandle<B> block, ResourceKey<Item> key, IBlockItemFactory<Item.Properties, R> factory)
+    {
+        var item = factory.apply(block.get(),
+                                 new Item.Properties()
+                                         .useBlockDescriptionPrefix()
+                                         .setId(key));
+        var registered = Services.ITEMS.register(key, _ -> item);
+
+        return new RegistryHandle<>()
+        {
+            @Override
+            public Identifier id()
+            {
+                return key.identifier();
+            }
+
+            @Override
+            public ResourceKey<Item> key()
+            {
+                return key;
+            }
+
+            @Override
+            public R get()
+            {
+                return registered.get();
+            }
+        };
+    }
 
     /**
      * Registers a block item for the specified block using a BlockItemId and custom factory.
@@ -82,7 +258,35 @@ public interface IBlockItemRegisterar
      * @param factory     the factory creating the block item
      * @return the registered BlockItem instance
      */
-    public <B extends Block, R extends BlockItem> RegistryHandle<R> register(B block, BlockItemId blockItemId, IBlockItemFactory<Item.Properties, R> factory);
+    default <B extends Block, R extends BlockItem> RegistryHandle<R> register(RegistryHandle<B> block, BlockItemId blockItemId, IBlockItemFactory<Item.Properties, R> factory)
+    {
+        var item = factory.apply(block.get(),
+                                 new Item.Properties()
+                                         .useBlockDescriptionPrefix()
+                                         .setId(blockItemId.item()));
+        var registered = Services.ITEMS.register(blockItemId.item(), _ -> item);
+
+        return new RegistryHandle<>()
+        {
+            @Override
+            public Identifier id()
+            {
+                return blockItemId.item().identifier();
+            }
+
+            @Override
+            public ResourceKey<Item> key()
+            {
+                return blockItemId.item();
+            }
+
+            @Override
+            public R get()
+            {
+                return registered.get();
+            }
+        };
+    }
 
     /**
      * Registers a block item with custom settings using a ResourceKey and custom factory.
@@ -94,7 +298,35 @@ public interface IBlockItemRegisterar
      * @param factory  the factory creating the block item
      * @return the registered BlockItem instance
      */
-    public <B extends Block, R extends BlockItem> RegistryHandle<R> register(B block, ResourceKey<Item> key, Item.Properties settings, IBlockItemFactory<Item.Properties, R> factory);
+    default <B extends Block, R extends BlockItem> RegistryHandle<R> register(RegistryHandle<B> block, ResourceKey<Item> key, Item.Properties settings, IBlockItemFactory<Item.Properties, R> factory)
+    {
+        var item = factory.apply(block.get(),
+                                 settings
+                                         .useBlockDescriptionPrefix()
+                                         .setId(key));
+        var registered = Services.ITEMS.register(key, _ -> item);
+
+        return new RegistryHandle<>()
+        {
+            @Override
+            public Identifier id()
+            {
+                return key.identifier();
+            }
+
+            @Override
+            public ResourceKey<Item> key()
+            {
+                return key;
+            }
+
+            @Override
+            public R get()
+            {
+                return registered.get();
+            }
+        };
+    }
 
     /**
      * Registers a block item with custom settings using a BlockItemId and custom factory.
@@ -106,6 +338,34 @@ public interface IBlockItemRegisterar
      * @param factory     the factory creating the block item
      * @return the registered BlockItem instance
      */
-    public <B extends Block, R extends BlockItem> RegistryHandle<R> register(B block, BlockItemId blockItemId, Item.Properties settings, IBlockItemFactory<Item.Properties, R> factory);
+    default <B extends Block, R extends BlockItem> RegistryHandle<R> register(RegistryHandle<B> block, BlockItemId blockItemId, Item.Properties settings, IBlockItemFactory<Item.Properties, R> factory)
+    {
+        var item = factory.apply(block.get(),
+                                 settings
+                                         .useBlockDescriptionPrefix()
+                                         .setId(blockItemId.item()));
+        var registered = Services.ITEMS.register(blockItemId.item(), _ -> item);
+
+        return new RegistryHandle<>()
+        {
+            @Override
+            public Identifier id()
+            {
+                return blockItemId.item().identifier();
+            }
+
+            @Override
+            public ResourceKey<Item> key()
+            {
+                return blockItemId.item();
+            }
+
+            @Override
+            public R get()
+            {
+                return registered.get();
+            }
+        };
+    }
     //endregion
 }

@@ -1,5 +1,6 @@
 package com.dynamero.materias.platform.factories;
 
+import com.dynamero.contracts.annotations.*;
 import net.minecraft.world.level.block.Block;
 
 /**
@@ -8,6 +9,15 @@ import net.minecraft.world.level.block.Block;
  * @param <U> the type of the additional settings required to create the item
  * @param <R> the type of the created item instance
  */
+@Developer("TheMentor")
+@CreatedAt("2026-10-16")
+@ModifiedAt("2026-10-16")
+@ModifiedBy("TheMentor")
+@Website("https://dynamero.com")
+@Repository("https://github.com/drkhodakarami/")
+@Discord("https://discord.gg/pmM4emCbuH")
+@Youtube("https://www.youtube.com/@TheMentorCodeLab")
+@Modrinth("https://modrinth.com/user/jiraiyah")
 public interface IBlockItemFactory<U, R>
 {
     /**

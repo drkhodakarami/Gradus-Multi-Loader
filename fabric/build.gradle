@@ -17,6 +17,9 @@ dependencies {
     minecraft("com.mojang:minecraft:${prp.minecraft_version}")
     implementation("net.fabricmc:fabric-loader:${prp.fabric_loader_version}")
     implementation("net.fabricmc.fabric-api:fabric-api:${prp.fabric_version}")
+
+    implementation "com.dynamero.contracts:contracts:${prp.contracts_version}"
+    include "com.dynamero.contracts:contracts:${prp.contracts_version}"
 }
 
 loom {

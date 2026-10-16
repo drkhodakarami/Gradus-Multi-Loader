@@ -1,5 +1,6 @@
 package com.dynamero.materias.utils;
 
+import com.dynamero.contracts.exceptions.Exceptions;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.equipment.EquipmentAsset;
 import net.minecraft.world.item.equipment.EquipmentAssets;

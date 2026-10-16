@@ -1,6 +1,6 @@
 package com.dynamero.materias.registries.world.worldgen;
 
-import com.dynamero.materias.utils.Exceptions;
+import com.dynamero.contracts.exceptions.Exceptions;
 
 public class ModFeatures
 {
@@ -10,6 +10,11 @@ public class ModFeatures
     }
 
     static
+    {
+
+    }
+
+    public static void load()
     {
 
     }
