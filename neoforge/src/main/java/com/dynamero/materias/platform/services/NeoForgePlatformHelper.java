@@ -1,6 +1,5 @@
-package com.dynamero.materias.platform;
+package com.dynamero.materias.platform.services;
 
-import com.dynamero.materias.platform.services.IPlatformHelper;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLLoader;
 

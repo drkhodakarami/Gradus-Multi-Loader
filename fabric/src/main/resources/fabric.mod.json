@@ -16,7 +16,7 @@
     "environment": "*",
     "entrypoints": {
         "main": [
-            "com.dynamero.materias.MateriasMain"
+          "com.dynamero.materias.MateriasFabric"
         ]
     },
     "mixins": [

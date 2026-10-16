@@ -1,6 +1,7 @@
 package com.dynamero.materias;
 
 import com.dynamero.materias.platform.Services;
+import com.dynamero.materias.registries.base.ModItems;
 
 import static com.dynamero.materias.MateriasConstants.LOGGER;
 
@@ -21,5 +22,7 @@ public class MateriasCommon
         {
             MateriasConstants.LOGGER.info("Hello to Materias");
         }
+
+        ModItems.load();
     }
 }

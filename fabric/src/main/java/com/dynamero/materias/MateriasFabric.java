@@ -6,7 +6,7 @@ import net.minecraft.SharedConstants;
 
 import static com.dynamero.materias.MateriasConstants.LOGGER;
 
-public class MateriasMain implements ModInitializer {
+public class MateriasFabric implements ModInitializer {
 
     @Override
     public void onInitialize()

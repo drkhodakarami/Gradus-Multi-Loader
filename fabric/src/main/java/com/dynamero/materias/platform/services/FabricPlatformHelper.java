@@ -1,6 +1,5 @@
-package com.dynamero.materias.platform;
+package com.dynamero.materias.platform.services;
 
-import com.dynamero.materias.platform.services.IPlatformHelper;
 import net.fabricmc.loader.api.FabricLoader;
 
 public class FabricPlatformHelper implements IPlatformHelper {
