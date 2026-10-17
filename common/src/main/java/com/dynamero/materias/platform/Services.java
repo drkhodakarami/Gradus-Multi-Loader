@@ -24,6 +24,8 @@ public class Services
     public static final IBlockItemRegisterar BLOCK_ITEMS = new IBlockItemRegisterar() {};
     public static final IEntityRegisterar ENTITIES = load(IEntityRegisterar.class);
     public static final IEntityAttributeRegisterar ENTITIE_ATTRIBUTES = load(IEntityAttributeRegisterar.class);
+    public static final ICreativeTabRegistrar CREATIVE_TAB_REGISTRAR = load(ICreativeTabRegistrar.class);
+    public static final IConsumeEffectRegistrar CONSUME_EFFECT_REGISTRAR = load(IConsumeEffectRegistrar.class);
 
     public static <T> T load(Class<T> clazz)
     {

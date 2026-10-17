@@ -4,7 +4,11 @@ import com.dynamero.contracts.annotations.*;
 import com.dynamero.contracts.exceptions.Exceptions;
 import com.dynamero.materias.platform.Services;
 import com.dynamero.materias.platform.services.utils.ItemHandle;
+import com.dynamero.materias.registries.misc.ModFoodConsumables;
+import com.dynamero.materias.registries.misc.ModFoodProperties;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.component.Consumable;
 
 import static com.dynamero.materias.MateriasConstants.LOG;
 
@@ -85,8 +89,12 @@ public class ModItems
         //endregion
 
         //region FOOD
-        COOKED_EGG = Services.ITEMS.register("cooked_egg");
-        EGG_AND_BREAD = Services.ITEMS.register("egg_and_bread");
+        COOKED_EGG = Services.ITEMS.registerFood("cooked_egg", 16,
+                                                 ModFoodProperties.COOKED_EGG,
+                                                 ModFoodConsumables.COOKED_EGG);
+        EGG_AND_BREAD = Services.ITEMS.registerFood("egg_and_bread", 16,
+                                                    ModFoodProperties.EGG_AND_BREAD,
+                                                    ModFoodConsumables.EGG_AND_BREAD);
         //endregion
 
         MOLTEN_EXODIUM_BUCKET = Services.ITEMS.register("molten_exodium_bucket");

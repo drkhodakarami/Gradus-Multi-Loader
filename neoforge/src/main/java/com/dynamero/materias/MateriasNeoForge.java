@@ -1,10 +1,7 @@
 package com.dynamero.materias;
 
 import com.dynamero.materias.platform.Services;
-import com.dynamero.materias.platform.services.registrars.IEntityAttributeRegisterar;
-import com.dynamero.materias.platform.services.registrars.NeoForgeBlockRegisterar;
-import com.dynamero.materias.platform.services.registrars.NeoForgeEntityRegisterar;
-import com.dynamero.materias.platform.services.registrars.NeoForgeItemRegisterar;
+import com.dynamero.materias.platform.services.registrars.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -27,6 +24,9 @@ public class MateriasNeoForge
         NeoForgeItemRegisterar.register(eventBus);
         NeoForgeBlockRegisterar.register(eventBus);
         NeoForgeEntityRegisterar.register(eventBus);
+
+        NeoForgeCreativeTabRegistrar.register(eventBus);
+        NeoForgeConsumeEffectRegistrar.register(eventBus);
 
         eventBus.addListener(MateriasNeoForge::onEntityAttributeCreation);
     }

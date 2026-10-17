@@ -1,12 +1,10 @@
 package com.dynamero.materias;
 
 import com.dynamero.materias.platform.Services;
-import com.dynamero.materias.registries.base.ModBlockEntities;
-import com.dynamero.materias.registries.base.ModBlockItems;
-import com.dynamero.materias.registries.base.ModBlocks;
-import com.dynamero.materias.registries.base.ModItems;
+import com.dynamero.materias.registries.base.*;
 import com.dynamero.materias.registries.entities.ModEntityAttributes;
 import com.dynamero.materias.registries.entities.ModEntityTypes;
+import com.dynamero.materias.registries.misc.ModConsumeEffectTypes;
 
 import static com.dynamero.materias.MateriasConstants.LOG;
 
@@ -31,7 +29,11 @@ public class MateriasCommon
         ModBlockItems.load();
         ModBlockEntities.load();
 
+        ModCreativeTabs.load();
+
         ModEntityTypes.load();
         ModEntityAttributes.load();
+
+        ModConsumeEffectTypes.load();
     }
 }

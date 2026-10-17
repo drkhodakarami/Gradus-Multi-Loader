@@ -31,10 +31,11 @@ public class MateriasConstants
     public static final String DCLR_START_ID = "dclr.start";
     public static final String DCLR_END_ID = "dclr.end";
 
-    public static final MutableComponent INGREDIENTS_CREATIVE_TAB = Component.translatable("creativetab.materia.ingredients");
-    public static final MutableComponent COMPONENTS_CREATIVE_TAB = Component.translatable("creativetab.materia.components");
-    public static final MutableComponent BLOCKS_CREATIVE_TAB = Component.translatable("creativetab.materia.blocks");
-    public static final MutableComponent MISC_CREATIVE_TAB = Component.translatable("creativetab.materia.misc");
+    public static final String CREATIVE_TAB_PREFIX = "itemGroup";
+    public static final String INGREDIENTS_CREATIVE_TAB = "ingredients";
+    public static final String COMPONENTS_CREATIVE_TAB = "components";
+    public static final String BLOCKS_CREATIVE_TAB = "blocks";
+    public static final String MISC_CREATIVE_TAB = "misc";
 
     //region TAGS
     public static final TagKey<Block> GEM_BLOCKS = createBlockCommonTag("gems");

@@ -3,6 +3,7 @@ package com.dynamero.materias.datagen.base;
 import com.dynamero.materias.MateriasConstants;
 import com.dynamero.materias.platform.services.utils.BlockHandle;
 import com.dynamero.materias.registries.base.ModBlocks;
+import com.dynamero.materias.registries.base.ModCreativeTabs;
 import com.dynamero.materias.registries.base.ModItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
@@ -485,10 +486,10 @@ public class ModEnLanguageProvider extends LanguageProvider
         add(MODID + "." + MateriasConstants.DCLR_START_ID, "DCLR: Starting to clean");
         add(MODID + "." + MateriasConstants.DCLR_END_ID, "DCLR: Finished cleaning");
 
-        add(MateriasConstants.INGREDIENTS_CREATIVE_TAB, "Materia Ingredients");
-        add(MateriasConstants.COMPONENTS_CREATIVE_TAB, "Materia Components");
-        add(MateriasConstants.BLOCKS_CREATIVE_TAB, "Materia Ore Blocks");
-        add(MateriasConstants.MISC_CREATIVE_TAB, "Ars Mundi Misc");
+        add(ModCreativeTabs.INGREDIENTS.get().getDisplayName(), "Ingredients");
+        add(ModCreativeTabs.BLOCKS.get().getDisplayName(), "Blocks");
+        add(ModCreativeTabs.COMPONENTS.get().getDisplayName(), "Components");
+        add(ModCreativeTabs.MISC.get().getDisplayName(), "Miscellaneous");
     }
 
     private void add(Component component, String value)
