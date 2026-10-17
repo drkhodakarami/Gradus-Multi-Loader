@@ -1,8 +1,5 @@
 package com.dynamero.materias.mixin;
 
-import static com.dynamero.materias.MateriasConstants.LOGGER;
-
-import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.screens.TitleScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

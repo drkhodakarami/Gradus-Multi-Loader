@@ -1,6 +1,8 @@
 package com.dynamero.materias.registries.world.worldgen;
 
 import com.dynamero.contracts.exceptions.Exceptions;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.world.level.levelgen.feature.Feature;
 
 public class ModFeatures
 {
@@ -14,7 +16,7 @@ public class ModFeatures
 
     }
 
-    public static void load()
+    public static void bootstrap(BootstrapContext<Feature> context)
     {
 
     }

@@ -1,15 +1,12 @@
 package com.dynamero.materias.platform;
 
 import com.dynamero.contracts.annotations.*;
-import static com.dynamero.materias.MateriasConstants.LOGGER;
 import com.dynamero.materias.platform.services.IPlatformHelper;
-import com.dynamero.materias.platform.services.registrars.IBlockItemRegisterar;
-import com.dynamero.materias.platform.services.registrars.IBlockRegisterar;
-import com.dynamero.materias.platform.services.registrars.IItemRegisterar;
-import net.minecraft.references.BlockItemId;
+import com.dynamero.materias.platform.services.registrars.*;
 
 import java.util.ServiceLoader;
 
+@SuppressWarnings("UnnecessaryLocalVariable")
 @Developer("TheMentor")
 @CreatedAt("2026-10-16")
 @ModifiedAt("2026-10-16")
@@ -25,6 +22,8 @@ public class Services
     public static final IItemRegisterar ITEMS = load(IItemRegisterar.class);
     public static final IBlockRegisterar BLOCKS = load(IBlockRegisterar.class);
     public static final IBlockItemRegisterar BLOCK_ITEMS = new IBlockItemRegisterar() {};
+    public static final IEntityRegisterar ENTITIES = load(IEntityRegisterar.class);
+    public static final IEntityAttributeRegisterar ENTITIE_ATTRIBUTES = load(IEntityAttributeRegisterar.class);
 
     public static <T> T load(Class<T> clazz)
     {

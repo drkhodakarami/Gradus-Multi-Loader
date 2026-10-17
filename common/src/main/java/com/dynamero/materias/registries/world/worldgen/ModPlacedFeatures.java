@@ -1,6 +1,8 @@
 package com.dynamero.materias.registries.world.worldgen;
 
 import com.dynamero.contracts.exceptions.Exceptions;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public class ModPlacedFeatures
 {
@@ -14,7 +16,7 @@ public class ModPlacedFeatures
 
     }
 
-    public static void load()
+    public static void bootstrap(BootstrapContext<PlacedFeature> context)
     {
 
     }

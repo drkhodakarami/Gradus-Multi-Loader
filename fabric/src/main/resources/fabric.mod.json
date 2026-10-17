@@ -18,6 +18,9 @@
     "entrypoints": {
         "main": [
           "com.dynamero.materias.MateriasFabric"
+        ],
+        "client": [
+            "com.dynamero.materias.MateriasFabricClient"
         ]
     },
     "mixins": [

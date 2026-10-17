@@ -1,7 +1,7 @@
 package com.dynamero.materias.platform.services.registrars;
 
 import com.dynamero.materias.platform.factories.IToolFactory;
-import com.dynamero.materias.platform.services.utils.RegistryHandle;
+import com.dynamero.materias.platform.services.utils.ItemHandle;
 import com.dynamero.materias.utils.BaseHelper;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -24,12 +24,12 @@ public class FabricItemRegisterar implements IItemRegisterar
     }
 
     @Override
-    public <R extends Item> RegistryHandle<R> registerTool(ResourceKey<Item> key, ToolMaterial material, float attackDamage, float attackSpeed, IToolFactory<Item.Properties, ? extends R> factory)
+    public <R extends Item> ItemHandle<R> registerTool(ResourceKey<Item> key, ToolMaterial material, float attackDamage, float attackSpeed, IToolFactory<Item.Properties, ? extends R> factory)
     {
         var item = factory.apply(material, attackDamage, attackSpeed, new Item.Properties().setId(key));
         var registered = Registry.register(BuiltInRegistries.ITEM, key, item);
 
-        return new RegistryHandle<>()
+        return new ItemHandle<>()
         {
             @Override
             public Identifier id()
@@ -52,13 +52,13 @@ public class FabricItemRegisterar implements IItemRegisterar
     }
 
     @Override
-    public <R extends Item> RegistryHandle<R> registerTool(ResourceKey<Item> key, ToolMaterial material, float attackDamage, float attackSpeed,
+    public <R extends Item> ItemHandle<R> registerTool(ResourceKey<Item> key, ToolMaterial material, float attackDamage, float attackSpeed,
                                                            Item.Properties settings, IToolFactory<Item.Properties, ? extends R> factory)
     {
         var item = factory.apply(material, attackDamage, attackSpeed, settings.setId(key));
         var registered = Registry.register(BuiltInRegistries.ITEM, key, item);
 
-        return new RegistryHandle<>()
+        return new ItemHandle<>()
         {
             @Override
             public Identifier id()
@@ -81,12 +81,12 @@ public class FabricItemRegisterar implements IItemRegisterar
     }
 
     @Override
-    public <R extends Item> RegistryHandle<R> register(ResourceKey<Item> key, Function<Item.Properties, ? extends R> factory)
+    public <R extends Item> ItemHandle<R> register(ResourceKey<Item> key, Function<Item.Properties, ? extends R> factory)
     {
         var item = factory.apply(new Item.Properties().setId(key));
         var registered = Registry.register(BuiltInRegistries.ITEM, key, item);
 
-        return new RegistryHandle<>()
+        return new ItemHandle<>()
         {
             @Override
             public Identifier id()
@@ -109,12 +109,12 @@ public class FabricItemRegisterar implements IItemRegisterar
     }
 
     @Override
-    public <R extends Item> RegistryHandle<R> register(ResourceKey<Item> key, int stackCount, Function<Item.Properties, ? extends R> factory)
+    public <R extends Item> ItemHandle<R> register(ResourceKey<Item> key, int stackCount, Function<Item.Properties, ? extends R> factory)
     {
         var item = factory.apply(new Item.Properties().setId(key). stacksTo(stackCount));
         var registered = Registry.register(BuiltInRegistries.ITEM, key, item);
 
-        return new RegistryHandle<>()
+        return new ItemHandle<>()
         {
             @Override
             public Identifier id()
@@ -137,12 +137,12 @@ public class FabricItemRegisterar implements IItemRegisterar
     }
 
     @Override
-    public <R extends Item> RegistryHandle<R> register(ResourceKey<Item> key, Item.Properties settings, Function<Item.Properties, ? extends R> factory)
+    public <R extends Item> ItemHandle<R> register(ResourceKey<Item> key, Item.Properties settings, Function<Item.Properties, ? extends R> factory)
     {
         var item = factory.apply(settings.setId(key));
         var registered = Registry.register(BuiltInRegistries.ITEM, key, item);
 
-        return new RegistryHandle<>()
+        return new ItemHandle<>()
         {
             @Override
             public Identifier id()
@@ -165,12 +165,12 @@ public class FabricItemRegisterar implements IItemRegisterar
     }
 
     @Override
-    public <R extends Item> RegistryHandle<R> register(ResourceKey<Item> key, int stackCount, Item.Properties settings, Function<Item.Properties, ? extends R> factory)
+    public <R extends Item> ItemHandle<R> register(ResourceKey<Item> key, int stackCount, Item.Properties settings, Function<Item.Properties, ? extends R> factory)
     {
         var item = factory.apply(settings.setId(key). stacksTo(stackCount));
         var registered = Registry.register(BuiltInRegistries.ITEM, key, item);
 
-        return new RegistryHandle<>()
+        return new ItemHandle<>()
         {
             @Override
             public Identifier id()

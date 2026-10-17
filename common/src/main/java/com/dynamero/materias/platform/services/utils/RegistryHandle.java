@@ -15,8 +15,8 @@ import java.util.function.Supplier;
 @Discord("https://discord.gg/pmM4emCbuH")
 @Youtube("https://www.youtube.com/@TheMentorCodeLab")
 @Modrinth("https://modrinth.com/user/jiraiyah")
-public interface RegistryHandle<T> extends Supplier<T>
+public interface RegistryHandle<T extends R, R> extends Supplier<T>
 {
     Identifier id();
-    ResourceKey<? super T> key();
+    ResourceKey<R> key();
 }

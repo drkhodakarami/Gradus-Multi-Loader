@@ -3,6 +3,9 @@ package com.dynamero.materias.platform.services.registrars;
 //import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 
 import com.dynamero.contracts.annotations.*;
+import com.dynamero.materias.platform.services.utils.EntityHandle;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -24,6 +27,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 @Modrinth("https://modrinth.com/user/jiraiyah")
 public interface IEntityRegisterar
 {
+    ResourceKey<EntityType<?>> key(String name);
+
     /**
      * Registers a new block entity type.
      *
@@ -44,7 +49,7 @@ public interface IEntityRegisterar
      * @param factory         the factory used to create instances of the entity
      * @return the registered entity type
      */
-    <R extends Entity> EntityType<R> register(String name, MobCategory spawnGroup, EntityType.EntityFactory<R> factory);
+    <R extends Entity> EntityHandle<EntityType<R>> register(String name, MobCategory spawnGroup, EntityType.EntityFactory<R> factory);
 
     /**
      * Registers a new entity type.
@@ -54,5 +59,5 @@ public interface IEntityRegisterar
      * @param type            the entity type builder used to create instances of the entity
      * @return the registered entity type
      */
-    <R extends Entity> EntityType<R> register(String name, EntityType.Builder<R> type);
+    <R extends Entity> EntityHandle<EntityType<R>> register(String name, EntityType.Builder<R> type);
 }

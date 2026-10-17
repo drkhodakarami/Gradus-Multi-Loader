@@ -1,9 +1,7 @@
 package com.dynamero.materias.platform.services.registrars;
 
-import com.dynamero.materias.platform.services.utils.RegistryHandle;
+import com.dynamero.materias.platform.services.utils.BlockHandle;
 import com.dynamero.materias.utils.BaseHelper;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -20,7 +18,7 @@ import static com.dynamero.materias.MateriasConstants.MODID;
 
 public class NeoForgeBlockRegisterar implements IBlockRegisterar
 {
-    private static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
+    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
 
     public static void register(IEventBus eventBus)
     {
@@ -33,11 +31,11 @@ public class NeoForgeBlockRegisterar implements IBlockRegisterar
         return BaseHelper.ResourceKeys.create(MODID, name, Registries.BLOCK);
     }
 
-    public <R extends Block> RegistryHandle<R> register(ResourceKey<Block> key, R block)
+    public <R extends Block> BlockHandle<R> register(ResourceKey<Block> key, R block)
     {
         var deferred = BLOCKS.register(key.identifier().getPath(), () -> block);
 
-        return new RegistryHandle<R>()
+        return new BlockHandle<R>()
         {
             @Override
             public Identifier id()
@@ -46,7 +44,7 @@ public class NeoForgeBlockRegisterar implements IBlockRegisterar
             }
 
             @Override
-            public ResourceKey<? super R> key()
+            public ResourceKey<Block> key()
             {
                 return key;
             }
@@ -59,12 +57,12 @@ public class NeoForgeBlockRegisterar implements IBlockRegisterar
         };
     }
 
-    public <R extends Block> RegistryHandle<R> register(ResourceKey<Block> key, Function<BlockBehaviour.Properties, ? extends R> factory)
+    public <R extends Block> BlockHandle<R> register(ResourceKey<Block> key, Function<BlockBehaviour.Properties, ? extends R> factory)
     {
         var deferred = BLOCKS.registerBlock(key.identifier().getPath(), factory,
                                             () -> BlockBehaviour.Properties.of().setId(key));
 
-        return new RegistryHandle<R>()
+        return new BlockHandle<R>()
         {
             @Override
             public Identifier id()
@@ -73,7 +71,7 @@ public class NeoForgeBlockRegisterar implements IBlockRegisterar
             }
 
             @Override
-            public ResourceKey<? super R> key()
+            public ResourceKey<Block> key()
             {
                 return key;
             }
@@ -86,12 +84,12 @@ public class NeoForgeBlockRegisterar implements IBlockRegisterar
         };
     }
 
-    public <R extends Block> RegistryHandle<R> register(ResourceKey<Block> key, BlockBehaviour.Properties settings, Function<BlockBehaviour.Properties, ? extends R> factory)
+    public <R extends Block> BlockHandle<R> register(ResourceKey<Block> key, BlockBehaviour.Properties settings, Function<BlockBehaviour.Properties, ? extends R> factory)
     {
         var deferred = BLOCKS.registerBlock(key.identifier().getPath(), factory,
                                             () -> settings.setId(key));
 
-        return new RegistryHandle<R>()
+        return new BlockHandle<R>()
         {
             @Override
             public Identifier id()
@@ -100,7 +98,7 @@ public class NeoForgeBlockRegisterar implements IBlockRegisterar
             }
 
             @Override
-            public ResourceKey<? super R> key()
+            public ResourceKey<Block> key()
             {
                 return key;
             }
@@ -113,12 +111,12 @@ public class NeoForgeBlockRegisterar implements IBlockRegisterar
         };
     }
 
-    public <R extends Block> RegistryHandle<R> registerCopy(Block copyBlock, ResourceKey<Block> key, Function<BlockBehaviour.Properties, ? extends R> factory)
+    public <R extends Block> BlockHandle<R> registerCopy(ResourceKey<Block> key, Block copyBlock, Function<BlockBehaviour.Properties, ? extends R> factory)
     {
         var deferred = BLOCKS.registerBlock(key.identifier().getPath(), factory,
                                             () -> BlockBehaviour.Properties.ofFullCopy(copyBlock).setId(key));
 
-        return new RegistryHandle<R>()
+        return new BlockHandle<R>()
         {
             @Override
             public Identifier id()
@@ -127,7 +125,7 @@ public class NeoForgeBlockRegisterar implements IBlockRegisterar
             }
 
             @Override
-            public ResourceKey<? super R> key()
+            public ResourceKey<Block> key()
             {
                 return key;
             }
@@ -140,72 +138,72 @@ public class NeoForgeBlockRegisterar implements IBlockRegisterar
         };
     }
 
-    public RegistryHandle<StairBlock> registerStair(String name, Block stateBlock, Block copyBlock)
+    public BlockHandle<StairBlock> registerStair(String name, Block stateBlock, Block copyBlock)
     {
-        return registerBlock(name,
-                             new StairBlock(
-                                     stateBlock.defaultBlockState(),
-                                     BlockBehaviour.Properties.ofFullCopy(copyBlock).setId(key(name))));
+        return register(name,
+                        new StairBlock(
+                                stateBlock.defaultBlockState(),
+                                BlockBehaviour.Properties.ofFullCopy(copyBlock).setId(key(name))));
     }
 
-    public RegistryHandle<SlabBlock> registerSlab(String name, Block copyBlock)
+    public BlockHandle<SlabBlock> registerSlab(String name, Block copyBlock)
     {
-        return registerBlock(name,
-                             new SlabBlock(
-                                     BlockBehaviour.Properties.ofFullCopy(copyBlock).setId(key(name))));
+        return register(name,
+                        new SlabBlock(
+                                BlockBehaviour.Properties.ofFullCopy(copyBlock).setId(key(name))));
     }
 
-    public RegistryHandle<ButtonBlock> registerButton(String name, BlockSetType blockType, int pressureTicks, Block copyBlock)
+    public BlockHandle<ButtonBlock> registerButton(String name, BlockSetType blockType, int pressureTicks, Block copyBlock)
     {
-        return registerBlock(name,
-                             new ButtonBlock(
-                                     blockType, pressureTicks,
-                                     BlockBehaviour.Properties.ofFullCopy(copyBlock).setId(key(name))));
+        return register(name,
+                        new ButtonBlock(
+                                blockType, pressureTicks,
+                                BlockBehaviour.Properties.ofFullCopy(copyBlock).setId(key(name))));
     }
 
-    public RegistryHandle<PressurePlateBlock> registerPressurePlate(String name, BlockSetType blockType, Block copyBlock)
+    public BlockHandle<PressurePlateBlock> registerPressurePlate(String name, BlockSetType blockType, Block copyBlock)
     {
-        return registerBlock(name,
-                             new PressurePlateBlock(
-                                     blockType,
-                                     BlockBehaviour.Properties.ofFullCopy(copyBlock).setId(key(name))));
+        return register(name,
+                        new PressurePlateBlock(
+                                blockType,
+                                BlockBehaviour.Properties.ofFullCopy(copyBlock).setId(key(name))));
     }
 
-    public RegistryHandle<FenceBlock> registerFence(String name, Block copyBlock)
+    public BlockHandle<FenceBlock> registerFence(String name, Block copyBlock)
     {
-        return registerBlock(name,
-                             new FenceBlock(
-                                     BlockBehaviour.Properties.ofFullCopy(copyBlock).setId(key(name))));
+        return register(name,
+                        new FenceBlock(
+                                BlockBehaviour.Properties.ofFullCopy(copyBlock).setId(key(name))));
     }
 
-    public RegistryHandle<FenceGateBlock> registerFenceGate(String name, WoodType woodType, Block copyBlock)
+    public BlockHandle<FenceGateBlock> registerFenceGate(String name, WoodType woodType, Block copyBlock)
     {
-        return registerBlock(name,
-                             new FenceGateBlock(
-                                     woodType,
-                                     BlockBehaviour.Properties.ofFullCopy(copyBlock).setId(key(name))));
+        return register(name,
+                        new FenceGateBlock(
+                                woodType,
+                                BlockBehaviour.Properties.ofFullCopy(copyBlock).setId(key(name))));
     }
 
-    public RegistryHandle<WallBlock> registerWall(String name, Block copyBlock)
+    public BlockHandle<WallBlock> registerWall(String name, Block copyBlock)
     {
-        return registerBlock(name,
-                             new WallBlock(
-                                     BlockBehaviour.Properties.ofFullCopy(copyBlock).setId(key(name))));
+        return register(name,
+                        new WallBlock(
+                                BlockBehaviour.Properties.ofFullCopy(copyBlock).setId(key(name))));
     }
 
-    public RegistryHandle<DoorBlock> registerDoor(String name, BlockSetType blockType, Block copyBlock)
+    public BlockHandle<DoorBlock> registerDoor(String name, BlockSetType blockType, Block copyBlock)
     {
-        return registerBlock(name,
-                             new DoorBlock(
-                                     blockType,
-                                     BlockBehaviour.Properties.ofFullCopy(copyBlock).setId(key(name))));
+        return register(name,
+                        new DoorBlock(
+                                blockType,
+                                BlockBehaviour.Properties.ofFullCopy(copyBlock).setId(key(name))));
     }
 
-    public RegistryHandle<TrapDoorBlock> registerTrapdoor(String name, BlockSetType blockType, Block copyBlock)
+    public BlockHandle<TrapDoorBlock> registerTrapdoor(String name, BlockSetType blockType, Block copyBlock)
     {
-        return registerBlock(name,
-                             new TrapDoorBlock(
-                                     blockType,
-                                     BlockBehaviour.Properties.ofFullCopy(copyBlock).setId(key(name))));
+        return register(name,
+                        new TrapDoorBlock(
+                                blockType,
+                                BlockBehaviour.Properties.ofFullCopy(copyBlock).setId(key(name))));
     }
 }

@@ -3,7 +3,7 @@ package com.dynamero.materias.platform.services.registrars;
 import java.util.function.Function;
 
 import com.dynamero.contracts.annotations.*;
-import com.dynamero.materias.platform.services.utils.RegistryHandle;
+import com.dynamero.materias.platform.services.utils.BlockHandle;
 import net.minecraft.references.BlockItemId;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -11,6 +11,8 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
+
+import javax.swing.*;
 
 /**
  * Provides utility methods for registering blocks in Minecraft.
@@ -29,103 +31,153 @@ public interface IBlockRegisterar
     ResourceKey<Block> key(String name);
 
     //region MAIN
-    <R extends Block> RegistryHandle<R> register(ResourceKey<Block> key, R block);
+    <R extends Block> BlockHandle<R> register(ResourceKey<Block> key, R block);
 
-    <R extends Block> RegistryHandle<R> register(ResourceKey<Block> key, Function<BlockBehaviour.Properties, ? extends R> factory);
-
-    <R extends Block> RegistryHandle<R> register(ResourceKey<Block> key, BlockBehaviour.Properties settings, Function<BlockBehaviour.Properties, ? extends R> factory);
-
-    default <R extends Block> RegistryHandle<R> registerBlock(String name, R block)
+    default <R extends Block> BlockHandle<R> register(String name, R block)
     {
         return register(key(name), block);
+    }
+
+    <R extends Block> BlockHandle<R> register(ResourceKey<Block> key, Function<BlockBehaviour.Properties, ? extends R> factory);
+
+    default <R extends Block> BlockHandle<R> register(String name, Function<BlockBehaviour.Properties, ? extends R> factory)
+    {
+        return register(key(name), factory);
+    }
+
+    <R extends Block> BlockHandle<R> register(ResourceKey<Block> key, BlockBehaviour.Properties settings, Function<BlockBehaviour.Properties, ? extends R> factory);
+
+    default <R extends Block> BlockHandle<R> register(String name, BlockBehaviour.Properties settings, Function<BlockBehaviour.Properties, ? extends R> factory)
+    {
+        return register(key(name), settings, factory);
     }
     //ednregion
 
     //region HELPERS
-    default RegistryHandle<Block> register(ResourceKey<Block> key)
+    default BlockHandle<Block> register(ResourceKey<Block> key)
     {
         return register(key, (Function<BlockBehaviour.Properties, Block>) Block::new);
     }
 
-    default RegistryHandle<Block> register(BlockItemId blockItemId)
+    default BlockHandle<Block> register(BlockItemId blockItemId)
     {
         return register(blockItemId, (Function<BlockBehaviour.Properties, Block>) Block::new);
     }
 
-    default <R extends Block> RegistryHandle<R> register(BlockItemId blockItemId, Function<BlockBehaviour.Properties, ? extends R> factory)
+    default <R extends Block> BlockHandle<R> register(BlockItemId blockItemId, Function<BlockBehaviour.Properties, ? extends R> factory)
     {
         return register(blockItemId.block(), factory);
     }
 
-    default RegistryHandle<Block> register(BlockItemId blockItemId, BlockBehaviour.Properties settings)
+    default BlockHandle<Block> register(BlockItemId blockItemId, BlockBehaviour.Properties settings)
     {
         return register(blockItemId, settings, Block::new);
     }
 
-    default <R extends Block> RegistryHandle<R> register(BlockItemId blockItemId, R block)
+    default <R extends Block> BlockHandle<R> register(BlockItemId blockItemId, R block)
     {
         return register(blockItemId.block(), block);
     }
 
-    default <R extends Block> RegistryHandle<R> register(BlockItemId blockItemId, BlockBehaviour.Properties settings, Function<BlockBehaviour.Properties, ? extends R> factory)
+    default <R extends Block> BlockHandle<R> register(BlockItemId blockItemId, BlockBehaviour.Properties settings, Function<BlockBehaviour.Properties, ? extends R> factory)
     {
         return register(blockItemId.block(), settings, factory);
     }
     //ednregion
 
     //region COPY
-    default RegistryHandle<Block> registerCopy(BlockItemId blockItemId, Block copyBlock)
+    default BlockHandle<Block> registerCopy(BlockItemId blockItemId, Block copyBlock)
     {
         return registerCopy(blockItemId, copyBlock, Block::new);
     }
 
-    default RegistryHandle<Block> registerCopy(ResourceKey<Block> key, Block copyBlock)
+    default <B extends Block> BlockHandle<Block> registerCopy(BlockItemId blockItemId, BlockHandle<B> copyBlock)
     {
-        return registerCopy(copyBlock, key, Block::new);
+        return registerCopy(blockItemId, copyBlock, Block::new);
     }
 
-    default <R extends Block> RegistryHandle<R> registerCopy(BlockItemId blockItemId, Block copyBlock, Function<BlockBehaviour.Properties, ? extends R> factory)
+    default BlockHandle<Block> registerCopy(ResourceKey<Block> key, Block copyBlock)
     {
-        return registerCopy(copyBlock, blockItemId.block(), factory);
+        return registerCopy(key, copyBlock, Block::new);
     }
 
-    default <R extends Block> RegistryHandle<R> registerCopy(ResourceKey<Block> key, Block copyBlock, Function<BlockBehaviour.Properties, ? extends R> factory)
+    default <B extends Block> BlockHandle<Block> registerCopy(ResourceKey<Block> key, BlockHandle<B> copyBlock)
     {
-        return registerCopy(copyBlock, key, factory);
+        return registerCopy(key, copyBlock, Block::new);
     }
 
-    <R extends Block> RegistryHandle<R> registerCopy(Block copyBlock, ResourceKey<Block> key, Function<BlockBehaviour.Properties, ? extends R> factory);
-
-    default <R extends Block, C extends Block> RegistryHandle<R> registerCopy(C copyBlock, BlockItemId blockItemId, Function<BlockBehaviour.Properties, ? extends R> factory)
+    default BlockHandle<Block> registerCopy(String name, Block copyBlock)
     {
-        return registerCopy(copyBlock, blockItemId.block(), factory);
+        return registerCopy(key(name), copyBlock, Block::new);
+    }
+
+    default <B extends Block> BlockHandle<Block> registerCopy(String name, BlockHandle<B> copyBlock)
+    {
+        return registerCopy(key(name), copyBlock, Block::new);
+    }
+
+    default <R extends Block> BlockHandle<R> registerCopy(BlockItemId blockItemId, Block copyBlock, Function<BlockBehaviour.Properties, ? extends R> factory)
+    {
+        return registerCopy(blockItemId.block(), copyBlock, factory);
+    }
+
+    default <B extends Block, R extends Block> BlockHandle<R> registerCopy(BlockItemId blockItemId, BlockHandle<B> copyBlock, Function<BlockBehaviour.Properties, ? extends R> factory)
+    {
+        return registerCopy(blockItemId.block(), copyBlock, factory);
+    }
+
+    default <R extends Block> BlockHandle<R> registerCopy(String name, Block copyBlock, Function<BlockBehaviour.Properties, ? extends R> factory)
+    {
+        return registerCopy(key(name), copyBlock, factory);
+    }
+
+    default <B extends Block, R extends Block> BlockHandle<R> registerCopy(String name, BlockHandle<B> copyBlock, Function<BlockBehaviour.Properties, ? extends R> factory)
+    {
+        return registerCopy(key(name), copyBlock, factory);
+    }
+
+    <R extends Block> BlockHandle<R> registerCopy(ResourceKey<Block> key, Block copyBlock, Function<BlockBehaviour.Properties, ? extends R> factory);
+
+    default <B extends Block, R extends Block> BlockHandle<R> registerCopy(ResourceKey<Block> key, BlockHandle<B> copyBlock, Function<BlockBehaviour.Properties, ? extends R> factory)
+    {
+        return registerCopy(key, copyBlock.get(), factory);
+    }
+
+    default <R extends Block, C extends Block> BlockHandle<R> registerCopy(C copyBlock, BlockItemId blockItemId, Function<BlockBehaviour.Properties, ? extends R> factory)
+    {
+        return registerCopy(blockItemId.block(), copyBlock, factory);
+    }
+
+    default <R extends Block, C extends Block> BlockHandle<R> registerCopy(BlockHandle<C> copyBlock, BlockItemId blockItemId, Function<BlockBehaviour.Properties, ? extends R> factory)
+    {
+        return registerCopy(blockItemId.block(), copyBlock, factory);
     }
     //endregion
 
-    RegistryHandle<StairBlock> registerStair(String name, Block stateBlock, Block copyBlock);
+    BlockHandle<StairBlock> registerStair(String name, Block stateBlock, Block copyBlock);
 
-    RegistryHandle<SlabBlock> registerSlab(String name, Block copyBlock);
+    BlockHandle<SlabBlock> registerSlab(String name, Block copyBlock);
 
-    RegistryHandle<ButtonBlock> registerButton(String name, BlockSetType blockType, int pressureTicks, Block copyBlock);
+    BlockHandle<ButtonBlock> registerButton(String name, BlockSetType blockType, int pressureTicks, Block copyBlock);
 
-    RegistryHandle<PressurePlateBlock> registerPressurePlate(String name, BlockSetType blockType, Block copyBlock);
+    BlockHandle<PressurePlateBlock> registerPressurePlate(String name, BlockSetType blockType, Block copyBlock);
 
-    RegistryHandle<FenceBlock> registerFence(String name, Block copyBlock);
+    BlockHandle<FenceBlock> registerFence(String name, Block copyBlock);
 
-    RegistryHandle<FenceGateBlock> registerFenceGate(String name, WoodType woodType, Block copyBlock);
+    BlockHandle<FenceGateBlock> registerFenceGate(String name, WoodType woodType, Block copyBlock);
 
-    RegistryHandle<WallBlock> registerWall(String name, Block copyBlock);
+    BlockHandle<WallBlock> registerWall(String name, Block copyBlock);
 
-    RegistryHandle<DoorBlock> registerDoor(String name, BlockSetType blockType, Block copyBlock);
+    BlockHandle<DoorBlock> registerDoor(String name, BlockSetType blockType, Block copyBlock);
 
-    RegistryHandle<TrapDoorBlock> registerTrapdoor(String name, BlockSetType blockType, Block copyBlock);
+    BlockHandle<TrapDoorBlock> registerTrapdoor(String name, BlockSetType blockType, Block copyBlock);
 
-    default RegistryHandle<Block> registerXpBlock(String name, int minXp, int maxXp, BlockBehaviour.Properties settings)
+    default BlockHandle<Block> registerXpBlock(String name, int minXp, int maxXp, BlockBehaviour.Properties settings)
     {
-        return registerBlock(name, new DropExperienceBlock(UniformInt.of(minXp, maxXp), settings.requiresCorrectToolForDrops()));
+        return register(name, new DropExperienceBlock(UniformInt.of(minXp, maxXp), settings.requiresCorrectToolForDrops()));
     }
 
-    default RegistryHandle<Block> registerXpBlock(String name, int minXp, int maxXp)
+    default BlockHandle<Block> registerXpBlock(String name, int minXp, int maxXp)
     {
         return registerXpBlock(name, minXp, maxXp, BlockBehaviour.Properties.of());
     }

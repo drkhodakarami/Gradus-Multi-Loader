@@ -1,4 +1,4 @@
-package com.dynamero.materias.registries.misc;
+package com.dynamero.materias.registries.entities;
 
 import com.dynamero.contracts.annotations.*;
 import com.dynamero.contracts.exceptions.Exceptions;
@@ -12,9 +12,9 @@ import com.dynamero.contracts.exceptions.Exceptions;
 @Discord("https://discord.gg/pmM4emCbuH")
 @Youtube("https://www.youtube.com/@TheMentorCodeLab")
 @Modrinth("https://modrinth.com/user/jiraiyah")
-public class ModAttributes
+public class ModEntityAttributes
 {
-    public ModAttributes()
+    public ModEntityAttributes()
     {
         Exceptions.throwCtorAssertion();
     }
