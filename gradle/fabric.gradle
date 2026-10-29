@@ -3,5 +3,5 @@ apply plugin: 'com.dynamero.props'
 def prp = props.load('dependencies')
 
 base {
-    archivesName = "${prp.materia_modid}-Fabric-${prp.minecraft_version}"
+    archivesName = "${prp.gradus_archives_base_name}-Fabric-${prp.minecraft_version}"
 }

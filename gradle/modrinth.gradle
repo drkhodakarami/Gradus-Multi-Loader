@@ -5,10 +5,10 @@ def local = props.load('local')
 
 def token = local.MODRINTH_TOKEN
 def project_id = local.MODRINTH_ID
-def mod_version = dep.materia_version
+def mod_version = dep.gradus_version
 def game_version = dep.minecraft_version
-def release_mode = dep.materia_release_type
-def mod_name = dep.materia_archives_base_name
+def release_mode = dep.gradus_release_type
+def mod_name = dep.gradus_archives_base_name
 
 def changelogFile = rootProject.file("CHANGELOG.md")
 def changelogText = changelogFile.exists() ? changelogFile.text : "No changelog provided."

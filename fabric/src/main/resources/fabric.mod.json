@@ -17,10 +17,10 @@
     "accessWidener": "${mod_id}.classtweaker",
     "entrypoints": {
         "main": [
-          "com.dynamero.materias.MateriasFabric"
+          "com.dynamero.gradus.MateriasFabric"
         ],
         "client": [
-            "com.dynamero.materias.MateriasFabricClient"
+            "com.dynamero.gradus.MateriasFabricClient"
         ]
     },
     "mixins": [

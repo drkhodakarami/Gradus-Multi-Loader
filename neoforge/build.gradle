@@ -32,9 +32,12 @@ neoForge {
             clientData()
             gameDirectory = this.mkdir(this.file('runs/data'))
             // DataGen can be run by - "./gradlew :neoforge:runData" in Terminal.
-            programArguments.addAll '--mod', prp.materia_modid, '--all',
+            programArguments.addAll(
+                    '--mod', prp.gradus_modid,
+                    '--all',
                     '--output', rootProject.project(':common').file('src/generated/resources/').getAbsolutePath(),
                     '--existing', rootProject.project(':common').file('src/main/resources/').getAbsolutePath()
+            )
         }
         server {
             server()

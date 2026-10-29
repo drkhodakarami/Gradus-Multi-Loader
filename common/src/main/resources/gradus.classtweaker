@@ -1,0 +1,5 @@
+classTweaker  v1  official
+
+transitive-accessible method net/minecraft/data/worldgen/placement/OrePlacements commonOrePlacement (ILnet/minecraft/world/level/levelgen/placement/PlacementModifier;)Ljava/util/List;
+transitive-accessible method net/minecraft/world/level/levelgen/feature/foliageplacers/FoliagePlacerType <init> (Lcom/mojang/serialization/MapCodec;)V
+transitive-accessible class net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacerType

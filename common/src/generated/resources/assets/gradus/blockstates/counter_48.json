@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "gradus:block/counter_48"
+    },
+    "lit=true": {
+      "model": "gradus:block/counter_48_on"
+    }
+  }
+}

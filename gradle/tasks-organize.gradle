@@ -167,9 +167,6 @@ gradle.projectsEvaluated {
             if (name == 'downloadAssets') {
                 group = "z-never used"
             }
-            if (name == 'runData') {
-                group = "z-never used"
-            }
 
             if (name == 'createDataLaunchScript') {
                 group = "z-never used"

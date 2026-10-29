@@ -11,19 +11,19 @@ java {
 
 tasks.withType(Jar).configureEach {
     from(rootProject.file('LICENSE')) {
-        rename { "${it}_${prp.materia_archives_base_name}" }
+        rename { "${it}_${prp.gradus_archives_base_name}" }
     }
 }
 
 jar {
     manifest {
-        attributes([
-                'Specification-Title'   : prp.materia_archives_base_name,
-                'Specification-Vendor'  : prp.materia_author,
+       attributes([
+                'Specification-Title'   : prp.gradus_archives_base_name,
+                'Specification-Vendor'  : prp.gradus_author,
                 'Specification-Version' : project.jar.archiveVersion,
                 'Implementation-Title'  : project.name,
                 'Implementation-Version': project.jar.archiveVersion,
-                'Implementation-Vendor' : prp.materia_author,
+                'Implementation-Vendor' : prp.gradus_author,
                 'Built-On-Minecraft'    : prp.minecraft_version
         ])
     }
@@ -57,20 +57,20 @@ spotless {
 
 processResources {
     var expandProps = [
-            'version'                      : prp.materia_version,
-            'group'                        : prp.materia_group,
+            'version'                      : prp.gradus_version,
+            'group'                        : prp.gradus_group,
             'minecraft_version'            : prp.minecraft_version,
             'minecraft_version_range'      : prp.minecraft_version_range,
             'fabric_version'               : prp.fabric_version,
             'fabric_loader_version'        : prp.fabric_loader_version,
-            'mod_name'                     : prp.materia_archives_base_name,
-            'mod_author'                   : prp.materia_author,
-            'mod_id'                       : prp.materia_modid,
-            'mod_license'                  : prp.materia_license,
-            'mod_description'              : prp.materia_description,
+            'mod_name'                     : prp.gradus_archives_base_name,
+            'mod_author'                   : prp.gradus_author,
+            'mod_id'                       : prp.gradus_modid,
+            'mod_license'                  : prp.gradus_license,
+            'mod_description'              : prp.gradus_description,
             'neoforge_version'             : prp.neoforge_version,
             'neoforge_loader_version_range': prp.neoforge_loader_version_range,
-            'mod_credits'                  : prp.materia_credits,
+            'mod_credits'                  : prp.gradus_credits,
             'java_version'                 : prp.java_version
     ]
 

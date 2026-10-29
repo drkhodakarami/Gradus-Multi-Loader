@@ -11,12 +11,12 @@
 [![Curseforge](https://img.shields.io/badge/Curseforge-blue.svg?style=for-the-badge&logo=curseforge&logoColor=black)](https://#)
 
 ## Repository Info
-| Parameter | Value                                                    |
-|---|----------------------------------------------------------|
-| Repository URL | https://repo.repsy.io/mvn/thementor/Materia-Multi-Loader |
-| Group ID | com.dynamero.materias                                    |
-| Artifact ID | materias                                                 |
-| Distribution | Modrinth / Curseforge                                    |
+| Parameter | Value                                                   |
+|---|---------------------------------------------------------|
+| Repository URL | https://repo.repsy.io/mvn/thementor/Gradus-Multi-Loader |
+| Group ID | com.dynamero.gradus                                     |
+| Artifact ID | gradus                                                  |
+| Distribution | Modrinth / Curseforge                                   |
 
 ## Author & Maintainer
 - TheMentor – Dynamero
